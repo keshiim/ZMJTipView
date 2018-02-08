@@ -7,13 +7,7 @@
 
 #import "ZMJTipView.h"
 
-typedef NS_ENUM(NSInteger, ZMJArrowPosition) {
-    ZMJArrowPosition_any = 0,
-    ZMJArrowPosition_top,
-    ZMJArrowPosition_bottom,
-    ZMJArrowPosition_right,
-    ZMJArrowPosition_left,
-};
+
 __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
     ZMJArrowPosition_top,
     ZMJArrowPosition_bottom,
