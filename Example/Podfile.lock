@@ -1,0 +1,23 @@
+PODS:
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - ZMJTipView (0.1.0)
+
+DEPENDENCIES:
+  - FBSnapshotTestCase
+  - ZMJTipView (from `../`)
+
+EXTERNAL SOURCES:
+  ZMJTipView:
+    :path: ../
+
+SPEC CHECKSUMS:
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  ZMJTipView: 266d6d67b23ca6c4bc1384bbd73edcda5482f7ba
+
+PODFILE CHECKSUM: f2c4ef7c39cac8e1fbfc11cbd38cf34ccfbb68a3
+
+COCOAPODS: 1.4.0
