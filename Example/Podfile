@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'ZMJTipView_Example' do
+  pod 'ZMJTipView', :path => '../'
+
+  target 'ZMJTipView_Tests' do
+    inherit! :search_paths
+
+    pod 'FBSnapshotTestCase'
+  end
+end
