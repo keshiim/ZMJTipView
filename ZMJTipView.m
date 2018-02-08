@@ -91,20 +91,34 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
 @end
 
 @interface ZMJTipView ()
-@property (nonatomic, strong) UIView *presentingView;
+@property (nonatomic, weak  ) UIView                *presentingView;
 @property (nonatomic, weak  ) id<ZMJTipViewDelegate> delegate;
-@property (nonatomic, assign) CGPoint *arrowTip;
-@property (nonatomic, strong) ZMJPreferences *preferences;
-
+@property (nonatomic, assign) CGPoint                arrowTip;
+@property (nonatomic, strong) ZMJPreferences        *preferences;
+@property (nonatomic, assign) CGSize textSize;
+@property (nonatomic, assign) CGSize contentSize;
 @end
 
 @implementation ZMJTipView
-
-- (instancetype)init
+@dynamic globalPreferences;
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super init];
+    self = [super initWithFrame:frame];
     if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)initWithText:(NSString *)text preferences:(ZMJPreferences *)preferences delegate:(id<ZMJTipViewDelegate>)delegate {
+    self = [self initWithFrame:CGRectZero];
+    if (self) {
+        _text = text;
+        _preferences = preferences;
+        _delegate = delegate;
         
+        self.backgroundColor = [UIColor clearColor];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRotation) name:UIDeviceOrientationDidChangeNotification object:nil];
     }
     return self;
 }
@@ -112,6 +126,21 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)setup {
+    _arrowTip = CGPointZero;
+}
+
+- (void)handleRotation {
+    if (self.superview == nil || self.presentingView == nil) {
+        return;
+    }
+    __weak typeof(self) weak_self = self;
+    [UIView animateWithDuration:0.3 animations:^{
+        [weak_self arrangeWithinSuperview:self.superview];
+        [weak_self setNeedsDisplay];
+    }];
 }
 
 // MARK:- Variables -
@@ -138,4 +167,28 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
     }
     return _globalPreferences;
 }
+
+// MARK: Lazy variables
+- (CGSize)textSize {
+    NSDictionary *attributes = @{NSFontAttributeName: self.preferences.drawing.font};
+    
+    CGSize textSize = [self.text boundingRectWithSize:CGSizeMake(self.preferences.positioning.maxWidth, CGFLOAT_MAX)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:attributes
+                                              context:nil].size;
+    textSize.width = ceilf(textSize.width);
+    textSize.height = ceilf(textSize.height);
+    
+    if (textSize.width < self.preferences.drawing.arrowWidth) {
+        textSize.width = self.preferences.drawing.arrowWidth;
+    }
+    return textSize;
+}
+
+- (CGSize)contentSize {
+    CGSize contentSize = CGSizeMake(self.textSize.width + self.preferences.positioning.textHInset * 2 + self.preferences.positioning.bubbleHInset * 2,
+                                    self.textSize.height + self.preferences.positioning.textVInset * 2 + self.preferences.positioning.bubbleVInset * 2 + self.preferences.drawing.arrowHeight);
+    return contentSize;
+}
+
 @end

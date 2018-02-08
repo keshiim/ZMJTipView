@@ -64,6 +64,10 @@ typedef NS_ENUM(NSInteger, ZMJArrowPosition) {
 @end
 
 @interface ZMJTipView : UIView
+- (instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
+- (instancetype)initWithText:(NSString *)text preferences:(ZMJPreferences *)preferences delegate:(id<ZMJTipViewDelegate>)delegate
+
 @property (nonatomic, strong) NSString *text;
 @property (class, nonatomic, strong) ZMJPreferences *globalPreferences;
+@property (nonatomic, strong, readonly) ZMJPreferences *preferences;
 @end
