@@ -112,13 +112,81 @@
                      preferences:preferences
                         delegate:nil];
     } else if (sender == self.buttonC) {
+        ZMJPreferences *preferences = ZMJTipView.globalPreferences;
+        preferences.drawing.backgroundColor = self.buttonC.backgroundColor;
         
+        preferences.animating.dismissTransform = CGAffineTransformMakeTranslation(0, -15);
+        preferences.animating.showInitialTransform = CGAffineTransformMakeTranslation(0, -15);
+        preferences.animating.showInitialAlpha = 0;
+        preferences.animating.showDuration = 1.5;
+        preferences.animating.dismissDuration = 1.5;
+        //            preferences.drawing.arrowPosition = .top
+        
+        NSString *text = @"This tip view cannot be presented with the arrow on the top position, so position bottom has been chosen instead. Tap to dismiss!";
+        [ZMJTipView showAnimated:YES
+                         forView:self.buttonC
+                 withinSuperview:self.navigationController.view
+                            text:text
+                     preferences:preferences
+                        delegate:nil];
     } else if (sender == self.buttonD) {
+        ZMJPreferences *preferences = ZMJTipView.globalPreferences;
+//            preferences.drawing.arrowPosition = .bottom
+        preferences.drawing.font = [UIFont systemFontOfSize:14.f];
+        preferences.drawing.textAlignment = NSTextAlignmentCenter;
+        preferences.drawing.backgroundColor = self.buttonD.backgroundColor;
         
+        preferences.positioning.maxWidth = 130;
+        
+        preferences.animating.dismissTransform = CGAffineTransformMakeTranslation(100, 0);
+        preferences.animating.showInitialTransform = CGAffineTransformMakeTranslation(100, 0);
+        preferences.animating.showInitialAlpha = 0;
+        preferences.animating.showDuration = 1;
+        preferences.animating.dismissDuration = 1;
+        
+        [ZMJTipView showAnimated:YES
+                         forView:self.buttonD
+                 withinSuperview:self.navigationController.view
+                            text:@"Tip view within the topmost window. Tap to dismiss."
+                     preferences:preferences
+                        delegate:nil];
     } else if (sender == self.buttonE) {
+        ZMJPreferences *preferences = [ZMJPreferences new];
+        preferences.drawing.backgroundColor = self.buttonE.backgroundColor;
+        preferences.drawing.foregroundColor = [UIColor whiteColor];
+        preferences.drawing.textAlignment = NSTextAlignmentCenter;
         
+        preferences.animating.dismissTransform = CGAffineTransformMakeTranslation(0, 100);
+        preferences.animating.showInitialTransform = CGAffineTransformMakeTranslation(0, -100);
+        preferences.animating.showInitialAlpha = 0;
+        preferences.animating.showDuration = 1;
+        preferences.animating.dismissDuration = 1;
+        
+        preferences.positioning.maxWidth = 150;
+        
+        ZMJTipView *view = [[ZMJTipView alloc] initWithText:@"Tip view positioned with the arrow on the right. Tap to dismiss."
+                                                preferences:preferences
+                                                   delegate:nil];
+        [view showAnimated:YES forView:self.buttonE withinSuperview:self.navigationController.view];
     } else if (sender == self.buttonF) {
+        ZMJPreferences *preferences = [ZMJPreferences new];
+        preferences.drawing.backgroundColor = self.buttonF.backgroundColor;
+        preferences.drawing.foregroundColor = [UIColor whiteColor];
+        preferences.drawing.textAlignment = NSTextAlignmentCenter;
         
+        preferences.animating.dismissTransform = CGAffineTransformMakeTranslation(-30, -100);
+        preferences.animating.showInitialTransform = CGAffineTransformMakeTranslation(30, 100);
+        preferences.animating.showInitialAlpha = 0;
+        preferences.animating.showDuration = 1;
+        preferences.animating.dismissDuration = 1;
+        preferences.animating.dismissOnTap = NO;
+        
+        preferences.positioning.maxWidth = 150;
+        
+        ZMJTipView *view = [[ZMJTipView alloc] initWithText:@"Tip view positioned with the arrow on the left. Tap won't dismiss."
+                                                preferences:preferences
+                                                   delegate:nil];
+        [view showAnimated:YES forView:self.buttonF withinSuperview:self.navigationController.view];
     }
 }
 
