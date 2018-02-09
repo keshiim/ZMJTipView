@@ -257,7 +257,7 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
 }
 
 - (void)handleTap {
-    dismiss();
+    [self dismissWithCompletion:nil];
 }
 
 // MARK: Drawing
@@ -446,4 +446,50 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
     return contentSize;
 }
 
+// MARK: - UIGestureRecognizerDelegate implementation
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    return self.preferences.animating.dismissOnTap;
+}
+@end
+
+@implementation ZMJTipView (publicStuff)
++ (void)showAnimated:(BOOL)animated
+             forItem:(UIBarItem *)item
+     withinSuperview:(UIView *)superview
+                text:(NSString *)text
+         preferences:(ZMJPreferences *)preferences
+            delegate:(id<ZMJTipViewDelegate>)delegate
+{
+    if (item.) {
+        <#statements#>
+    }
+}
+
++ (void)showAnimated:(BOOL)animated
+             forView:(UIView *)view
+     withinSuperview:(UIView *)superview
+                text:(NSString *)text
+         preferences:(ZMJPreferences *)preferences
+            delegate:(id<ZMJTipViewDelegate>)delegate
+{
+    
+}
+
+- (void)showAnimated:(BOOL)animated
+             forItem:(UIBarItem *)item
+     withinSuperview:(UIView *)superview
+{
+    
+}
+
+- (void)showAnimated:(BOOL)animated
+             forView:(UIView *)view
+     withinSuperview:(UIView *)superview
+{
+    
+}
+
+- (void)dismissWithCompletion:(void(^)(void))completion {
+    
+}
 @end

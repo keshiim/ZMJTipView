@@ -71,3 +71,65 @@ typedef NS_ENUM(NSInteger, ZMJArrowPosition) {
 @property (class, nonatomic, strong) ZMJPreferences *globalPreferences;
 @property (nonatomic, strong, readonly) ZMJPreferences *preferences;
 @end
+
+@interface ZMJTipView (publicStuff)
+
+/**
+ Presents an ZMJTipView pointing to a particular UIBarItem instance within the specified superview
+
+ @param animated  Pass true to animate the presentation.
+ @param item      The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
+ @param superview A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+ @param text      The text to be displayed.
+ @param preferences The preferences which will configure the EasyTipView.
+ @param delegate    The delegate.
+ */
++ (void)showAnimated:(BOOL)animated forItem:(UIBarItem *)item withinSuperview:(UIView *)superview text:(NSString *)text preferences:(ZMJPreferences *)preferences delegate:(id<ZMJTipViewDelegate>)delegate;
+
+/**
+ Presents an ZMJTipView pointing to a particular UIView instance within the specified superview
+
+ @param animated  Pass true to animate the presentation.
+ @param view      The UIView instance which the EasyTipView will be pointing to.
+ @param superview A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+ @param text      The text to be displayed.
+ @param preferences The preferences which will configure the EasyTipView.
+ @param delegate    The delegate.
+ */
++ (void)showAnimated:(BOOL)animated forView:(UIView *)view withinSuperview:(UIView *)superview text:(NSString *)text preferences:(ZMJPreferences *)preferences delegate:(id<ZMJTipViewDelegate>)delegate;
+
+/**
+ Presents an ZMJTipView pointing to a particular UIBarItem instance within the specified superview
+
+ @param animated  Pass true to animate the presentation.
+ @param item      The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
+ @param superview A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+ */
+- (void)showAnimated:(BOOL)animated forItem:(UIBarItem *)item withinSuperview:(UIView *)superview;
+
+/**
+ Presents an ZMJTipView pointing to a particular UIView instance within the specified superview
+
+ @param animated  Pass true to animate the presentation.
+ @param view      The UIView instance which the EasyTipView will be pointing to.
+ @param superview A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+ */
+- (void)showAnimated:(BOOL)animated forView:(UIView *)view withinSuperview:(UIView *)superview;
+
+/**
+ Dismisses the ZMJTipView
+
+ @param completion Completion block to be executed after the EasyTipView is dismissed.
+ */
+- (void)dismissWithCompletion:(void(^)(void))completion;
+@end
+
+// MARK: UIBarItem extension
+@interface UIBarItem (zmj_extension)
+@property (nonatomic, strong, readonly) UIView *view;
+@end
+
+// MARK: UIView extension
+@interface UIView (zmj_extension)
+@property (nonatomic, assign, readonly) BOOL hasSuperview;
+@end
