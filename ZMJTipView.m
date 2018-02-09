@@ -362,17 +362,40 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
     ZMJArrowPosition arrowPosition = self.preferences.drawing.arrowPosition;
     CGFloat bubbleWidth = 0.f;
     CGFloat bubbleHeight = 0.f;
-    CGFloat bubbleXorigin = 0.f;
-    CGFloat bubbleYorigin = 0.f;
+    CGFloat bubbleXOrigin = 0.f;
+    CGFloat bubbleYOrigin = 0.f;
     
     switch (arrowPosition) {
-        case :
-            <#statements#>
-            break;
+        case ZMJArrowPosition_bottom:
+        case ZMJArrowPosition_top:
+        case ZMJArrowPosition_any:
+            bubbleWidth = self.contentSize.width - 2 * self.preferences.positioning.bubbleHInset;
+            bubbleHeight= self.contentSize.height - 2 * self.preferences.positioning.bubbleVInset - self.preferences.drawing.arrowHeight;
             
+            bubbleXOrigin = self.preferences.positioning.bubbleHInset;
+            bubbleYOrigin = arrowPosition == ZMJArrowPosition_bottom ? self.preferences.positioning.bubbleVInset : self.preferences.positioning.bubbleVInset + self.preferences.drawing.arrowHeight;
+            break;
+        case ZMJArrowPosition_left:
+        case ZMJArrowPosition_right:
+            bubbleWidth = self.contentSize.width - 2 * self.preferences.positioning.bubbleHInset - self.preferences.drawing.arrowHeight;
+            bubbleHeight = self.contentSize.height - 2 * self.preferences.positioning.bubbleVInset;
+            
+            bubbleXOrigin = arrowPosition == ZMJArrowPosition_right ? self.preferences.positioning.bubbleHInset : self.preferences.positioning.bubbleHInset + self.preferences.drawing.arrowHeight;
+            bubbleYOrigin = self.preferences.positioning.bubbleVInset;
+            break;
         default:
             break;
     }
+    CGRect bubbleFrame = CGRectMake(bubbleXOrigin, bubbleYOrigin, bubbleWidth, bubbleHeight);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(context);
+    [self drawBubble:bubbleFrame arrowPosition:self.preferences.drawing.arrowPosition context:context];
+    CGContextRestoreGState(context);
+    
+    CGContextSaveGState(context);
+    [self drawText:bubbleFrame context:context];
+    CGContextRestoreGState(context);
 }
 
 // MARK: Variables
