@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "ZMJTipView.h"
 
 FOUNDATION_EXPORT double ZMJTipViewVersionNumber;
 FOUNDATION_EXPORT const unsigned char ZMJTipViewVersionString[];

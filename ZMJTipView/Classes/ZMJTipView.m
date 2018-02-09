@@ -114,8 +114,11 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
     self = [self initWithFrame:CGRectZero];
     if (self) {
         _text = text;
+        preferences = preferences?: ZMJTipView.globalPreferences;
         _preferences = preferences;
         _delegate = delegate;
+        
+        [self addObserver:self forKeyPath:@"backgroundColor" options:NSKeyValueObservingOptionNew context:nil];
         
         self.backgroundColor = [UIColor clearColor];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRotation) name:UIDeviceOrientationDidChangeNotification object:nil];
@@ -126,6 +129,7 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self removeObserver:self forKeyPath:@"backgroundColor"];
 }
 
 - (void)setup {
@@ -294,7 +298,7 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
             break;
     }
     CGPathCloseSubpath(contourPath);
-    CGContextSetShadowWithColor(context, CGSizeZero, 8, [[UIColor blackColor] colorWithAlphaComponent:.8].CGColor);
+    CGContextSetShadowWithColor(context, CGSizeZero, 10, [[UIColor blackColor] colorWithAlphaComponent:.6].CGColor);
     CGContextAddPath(context, contourPath);
     CGContextClosePath(context);
     
@@ -399,12 +403,15 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
 }
 
 // MARK: Variables
-- (void)setBackgroundColor:(UIColor *)backgroundColor {
-    if (backgroundColor == nil || [backgroundColor isEqual:[UIColor clearColor]]) {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    UIColor *backgroundColor = (UIColor *)[change objectForKey:NSKeyValueChangeNewKey];
+    if ([backgroundColor isEqual:[UIColor clearColor]]) {
         return;
     }
     self.preferences.drawing.backgroundColor = backgroundColor;
-    [super setBackgroundColor:[UIColor clearColor]];
+    [self removeObserver:self forKeyPath:@"backgroundColor"];
+    [self setValue:[UIColor clearColor] forKey:keyPath];
+    [self addObserver:self forKeyPath:@"backgroundColor" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (NSString *)description {
@@ -415,12 +422,18 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
     return [NSString stringWithFormat:@"<<%@ with text: '%@'>>", NSStringFromClass([self class]), self.text];
 }
 
+static ZMJPreferences *_globalPreferences;
 + (ZMJPreferences *)globalPreferences {
-    static ZMJPreferences *_globalPreferences;
     if (_globalPreferences == nil) {
         _globalPreferences = [ZMJPreferences new];
     }
     return _globalPreferences;
+}
+
++ (void)setGlobalPreferences:(ZMJPreferences *)globalPreferences {
+    if (globalPreferences) {
+        _globalPreferences = globalPreferences;
+    }
 }
 
 // MARK: Lazy variables
@@ -461,6 +474,7 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
             delegate:(id<ZMJTipViewDelegate>)delegate
 {
     if (item.view) {
+        preferences = preferences ?: ZMJTipView.globalPreferences;
         [self showAnimated:animated forView:item.view withinSuperview:superview text:text preferences:preferences delegate:delegate];
     }
 }
@@ -472,6 +486,7 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
          preferences:(ZMJPreferences *)preferences
             delegate:(id<ZMJTipViewDelegate>)delegate
 {
+    preferences = preferences ?: ZMJTipView.globalPreferences;
     ZMJTipView *tipview = [[ZMJTipView alloc] initWithText:text preferences:preferences delegate:delegate];
     [tipview showAnimated:animated forView:view withinSuperview:superview];
 }
