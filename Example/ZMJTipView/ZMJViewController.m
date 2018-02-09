@@ -34,9 +34,10 @@
     ZMJPreferences *preferences = [ZMJPreferences new];
     preferences.drawing.font = [UIFont fontWithName:@"Futura-Medium" size:13];
     preferences.drawing.foregroundColor = [UIColor whiteColor];
-    preferences.drawing.backgroundColor = [UIColor colorWithRed:.46 green:.99 blue:.6 alpha:1];
+    preferences.drawing.backgroundColor = [UIColor colorWithHue:.46 saturation:.99 brightness:.6 alpha:1];
     
     ZMJTipView.globalPreferences = preferences;
+    self.view.backgroundColor = [UIColor colorWithHue:0.75 saturation:0.01 brightness:0.96 alpha:1.00];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -91,7 +92,25 @@
         [view showAnimated:YES forView:_buttonA withinSuperview:self.smallContainer];
 
     } else if (sender == self.buttonB) {
+        ZMJPreferences *preferences = ZMJTipView.globalPreferences;
+        preferences.drawing.foregroundColor = [UIColor whiteColor];
+        preferences.drawing.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
+        preferences.drawing.textAlignment = NSTextAlignmentJustified;
         
+        preferences.animating.dismissTransform = CGAffineTransformMakeTranslation(0, -15);
+        preferences.animating.showInitialTransform = CGAffineTransformMakeTranslation(0, 15);
+        preferences.animating.showInitialAlpha = 0;
+        preferences.animating.showDuration = 1;
+        preferences.animating.dismissDuration = 1;
+        //            preferences.drawing.arrowPosition = .top
+        
+        NSString *text = @"Tip view inside the navigation controller's view. Tap to dismiss!";
+        [ZMJTipView showAnimated:YES
+                         forView:self.buttonB
+                 withinSuperview:self.navigationController.view
+                            text:text
+                     preferences:preferences
+                        delegate:nil];
     } else if (sender == self.buttonC) {
         
     } else if (sender == self.buttonD) {

@@ -311,8 +311,8 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
 - (void)drawBubbleBottomShape:(CGRect)frame cornerRadius:(CGFloat)cornerRadius path:(CGMutablePathRef)path {
     CGPathAddArcToPoint(path, NULL, frame.origin.x, CGRectGetMaxY(frame), frame.origin.x, frame.origin.y, cornerRadius);
     CGPathAddArcToPoint(path, NULL, frame.origin.x, frame.origin.y, CGRectGetMaxX(frame), frame.origin.y, cornerRadius);
-    CGPathAddArcToPoint(path, NULL, CGRectGetMaxX(frame), frame.origin.y + frame.size.height, CGRectGetMaxX(frame), CGRectGetMaxY(frame), cornerRadius);
-    CGPathAddArcToPoint(path, NULL, CGRectGetMaxX(frame), CGRectGetMaxY(frame), frame.origin.x, frame.origin.y, cornerRadius);
+    CGPathAddArcToPoint(path, NULL, CGRectGetMaxX(frame), frame.origin.y, CGRectGetMaxX(frame), CGRectGetMaxY(frame), cornerRadius);
+    CGPathAddArcToPoint(path, NULL, CGRectGetMaxX(frame), CGRectGetMaxY(frame), frame.origin.x, CGRectGetMaxY(frame), cornerRadius);
 }
 
 - (void)drawBubbleTopShape:(CGRect)frame cornerRadius:(CGFloat)cornerRadius path:(CGMutablePathRef)path {
@@ -326,7 +326,7 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
     CGPathAddArcToPoint(path, NULL, CGRectGetMaxX(frame), frame.origin.y, frame.origin.x, frame.origin.y, cornerRadius);
     CGPathAddArcToPoint(path, NULL, frame.origin.x, frame.origin.y, frame.origin.x, CGRectGetMaxY(frame), cornerRadius);
     CGPathAddArcToPoint(path, NULL, frame.origin.x, CGRectGetMaxY(frame), CGRectGetMaxX(frame), CGRectGetMaxY(frame), cornerRadius);
-    CGPathAddArcToPoint(path, NULL, CGRectGetMaxX(frame), CGRectGetMaxY(frame), CGRectGetMaxX(frame), frame.origin.y, cornerRadius);
+    CGPathAddArcToPoint(path, NULL, CGRectGetMaxX(frame), CGRectGetMaxY(frame), CGRectGetMaxX(frame), frame.size.height, cornerRadius);
 }
 
 - (void)drawBubbleLeftShape:(CGRect)frame cornerRadius:(CGFloat)cornerRadius path:(CGMutablePathRef)path {
