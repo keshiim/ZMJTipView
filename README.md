@@ -5,6 +5,12 @@
 [![License](https://img.shields.io/cocoapods/l/ZMJTipView.svg?style=flat)](http://cocoapods.org/pods/ZMJTipView)
 [![Platform](https://img.shields.io/cocoapods/p/ZMJTipView.svg?style=flat)](http://cocoapods.org/pods/ZMJTipView)
 
+Description
+---------------
+```ZMJTipView``` is a fully customisable tooltip view written in Swift that can be used as a call to action or informative tip.
+
+
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
@@ -27,3 +33,5 @@ keshiim, keshiim@163.com
 ## License
 
 ZMJTipView is available under the MIT license. See the LICENSE file for more info.
+
+
