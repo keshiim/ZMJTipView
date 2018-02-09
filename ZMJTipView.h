@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, ZMJArrowPosition) {
 @property (nonatomic, assign) CGFloat arrowWidth;
 @property (nonatomic, strong) UIColor *foregroundColor;
 @property (nonatomic, strong) UIColor *backgroundColor;
-@property (nonatomic, assign) ZMJArrowPosition arrowPostion;
+@property (nonatomic, assign) ZMJArrowPosition arrowPosition;
 @property (nonatomic, assign) NSTextAlignment  textAlignment;
 @property (nonatomic, assign) CGFloat borderWidth;
 @property (nonatomic, strong) UIColor *borderColor;
@@ -65,7 +65,7 @@ typedef NS_ENUM(NSInteger, ZMJArrowPosition) {
 
 @interface ZMJTipView : UIView
 - (instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
-- (instancetype)initWithText:(NSString *)text preferences:(ZMJPreferences *)preferences delegate:(id<ZMJTipViewDelegate>)delegate
+- (instancetype)initWithText:(NSString *)text preferences:(ZMJPreferences *)preferences delegate:(id<ZMJTipViewDelegate>)delegate;
 
 @property (nonatomic, strong) NSString *text;
 @property (class, nonatomic, strong) ZMJPreferences *globalPreferences;
