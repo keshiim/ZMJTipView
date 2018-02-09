@@ -9,7 +9,25 @@ Description
 ---------------
 ```ZMJTipView``` is a fully customisable tooltip view written in Swift that can be used as a call to action or informative tip.
 
+|<img src="https://raw.githubusercontent.com/keshiim/ZMJTipView/master/Resources/easytipview.gif" width="320">|<img src="https://raw.githubusercontent.com/keshiim/ZMJTipView/master/Resources/static.png" width="320">|
+|----------|-------------|
+## Contents
+1. [Features](#features)
+3. [Installation](#installation)
+4. [Supported OS & SDK versions](#supported-versions)
+5. [Usage](#usage)
+6. [Customising the appearance](#customising)
+7. [Customising the presentation and dismissal animations](#customising-animations)
+9. [Public interface](#public-interface)
+10. [License](#license)
+11. [Contact](#contact)
 
+##<a name="features"> Features </a>
+- [x] Can be shown pointing to any ``UIBarItem`` or ``UIView`` subclass.
+- [x] support for any arrow direction `←, →, ↑, ↓`
+- [x] Automatic orientation change adjustments.
+- [x] Fully customisable appearance.
+- [x] Fully customisable presentation and dismissal animations.
 
 ## Example
 
