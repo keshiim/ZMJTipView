@@ -20,7 +20,7 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
 {
     self = [super init];
     if (self) {
-        _dissmissTransform    = CGAffineTransformMakeScale(.1, .1);
+        _dismissTransform     = CGAffineTransformMakeScale(.1, .1);
         _showInitialTransform = CGAffineTransformMakeScale(0, 0);
         _showFinalTransform   = CGAffineTransformIdentity;
         
@@ -90,7 +90,7 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
 }
 @end
 
-@interface ZMJTipView ()
+@interface ZMJTipView () <UIGestureRecognizerDelegate>
 @property (nonatomic, weak  ) UIView                *presentingView;
 @property (nonatomic, weak  ) id<ZMJTipViewDelegate> delegate;
 @property (nonatomic, assign) CGPoint                arrowTip;
@@ -460,8 +460,8 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
          preferences:(ZMJPreferences *)preferences
             delegate:(id<ZMJTipViewDelegate>)delegate
 {
-    if (item.) {
-        <#statements#>
+    if (item.view) {
+        [self showAnimated:animated forView:item.view withinSuperview:superview text:text preferences:preferences delegate:delegate];
     }
 }
 
@@ -472,24 +472,111 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
          preferences:(ZMJPreferences *)preferences
             delegate:(id<ZMJTipViewDelegate>)delegate
 {
-    
+    ZMJTipView *tipview = [[ZMJTipView alloc] initWithText:text preferences:preferences delegate:delegate];
+    [tipview showAnimated:animated forView:view withinSuperview:superview];
 }
 
 - (void)showAnimated:(BOOL)animated
              forItem:(UIBarItem *)item
      withinSuperview:(UIView *)superview
 {
-    
+    if (item.view) {
+        [self showAnimated:animated forView:item.view withinSuperview:superview];
+    }
 }
 
 - (void)showAnimated:(BOOL)animated
              forView:(UIView *)view
      withinSuperview:(UIView *)superview
 {
+    NSAssert2(superview == nil || [view hashSuperview:superview], @"The supplied superview <\%@)> is not a direct nor an indirect superview of the supplied reference view <%@)>. The superview passed to this method should be a direct or an indirect superview of the reference view. To display the tooltip within the main window, ignore the superview parameter.", superview, view);
     
+    if (!superview) {
+        superview = [UIApplication sharedApplication].windows.firstObject;
+    }
+    
+    CGAffineTransform initialTransform = self.preferences.animating.showInitialTransform;
+    CGAffineTransform finalTransform = self.preferences.animating.showFinalTransform;
+    CGFloat initialAlpha = self.preferences.animating.showInitialAlpha;
+    CGFloat damping = self.preferences.animating.springDamping;
+    CGFloat velocity = self.preferences.animating.springVelocity;
+    
+    self.presentingView = view;
+    [self arrangeWithinSuperview:superview];
+    
+    self.transform = initialTransform;
+    self.alpha = initialAlpha;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap)];
+    tap.delegate = self;
+    [self addGestureRecognizer:tap];
+    
+    [superview addSubview:self];
+    
+    __weak typeof(self) weak_self = self;
+    void(^animations)(void) = ^(void) {
+        weak_self.transform = finalTransform;
+        weak_self.alpha = 1;
+    };
+    
+    if (animated) {
+        [UIView animateWithDuration:self.preferences.animating.showDuration
+                              delay:0
+             usingSpringWithDamping:damping
+              initialSpringVelocity:velocity
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:animations
+                         completion:nil];
+    } else {
+        animations();
+    }
 }
 
 - (void)dismissWithCompletion:(void(^)(void))completion {
+    CGFloat damping = self.preferences.animating.springDamping;
+    CGFloat velocity = self.preferences.animating.springVelocity;
     
+    __weak typeof(self) weak_self = self;
+    [UIView animateWithDuration:self.preferences.animating.dismissDuration
+                          delay:0
+         usingSpringWithDamping:damping
+          initialSpringVelocity:velocity
+                        options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                            weak_self.transform = self.preferences.animating.dismissTransform;
+                            weak_self.alpha = self.preferences.animating.dismissFinalAlpha;
+                        } completion:^(BOOL finished) {
+                            [weak_self.delegate tipViewDidDimiss:weak_self];
+                            [weak_self removeFromSuperview];
+                            weak_self.transform = CGAffineTransformIdentity;
+                        }];
+}
+@end
+
+// MARK: UIBarItem extension
+@implementation UIBarItem (zmj_extension)
+- (UIView *)view {
+    if ([self isKindOfClass:[UIBarButtonItem class]] && [(UIBarButtonItem *)self customView]) {
+        return [(UIBarButtonItem *)self customView];
+    }
+    return [[self valueForKey:@"view"] isKindOfClass:[UIView class]] ? [self valueForKey:@"view"] : nil;
+}
+@end
+
+// MARK: UIView extension
+@implementation UIView (zmj_extension)
+- (BOOL)hashSuperview:(UIView *)superview {
+    return [self viewHasSupperview:self superview:superview];
+}
+
+- (BOOL)viewHasSupperview:(UIView *)view superview:(UIView *)superview {
+    if (view.superview) {
+        if (view.superview == superview) {
+            return YES;
+        } else {
+            return [self viewHasSupperview:view.superview superview:superview];
+        }
+    } else {
+        return NO;
+    }
 }
 @end

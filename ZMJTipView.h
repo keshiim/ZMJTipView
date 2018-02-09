@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, ZMJArrowPosition) {
 @end
 
 @interface ZMJAnimating : NSObject
-@property (nonatomic, assign) CGAffineTransform dissmissTransform;
+@property (nonatomic, assign) CGAffineTransform dismissTransform;
 @property (nonatomic, assign) CGAffineTransform showInitialTransform;
 @property (nonatomic, assign) CGAffineTransform showFinalTransform;
 @property (nonatomic, assign) CGFloat springDamping; //阻尼率
@@ -131,5 +131,5 @@ typedef NS_ENUM(NSInteger, ZMJArrowPosition) {
 
 // MARK: UIView extension
 @interface UIView (zmj_extension)
-@property (nonatomic, assign, readonly) BOOL hasSuperview;
+- (BOOL)hashSuperview:(UIView *)superview;
 @end
