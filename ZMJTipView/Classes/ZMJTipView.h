@@ -70,6 +70,7 @@ typedef NS_ENUM(NSInteger, ZMJArrowPosition) {
 @property (nonatomic, strong) NSString *text;
 @property (class, nonatomic, strong) ZMJPreferences *globalPreferences;
 @property (nonatomic, strong, readonly) ZMJPreferences *preferences;
+@property (nonatomic, strong) UIView *fakeView;
 @end
 
 @interface ZMJTipView (publicStuff)

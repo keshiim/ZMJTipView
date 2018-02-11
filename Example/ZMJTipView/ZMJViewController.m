@@ -8,6 +8,9 @@
 
 #import "ZMJViewController.h"
 #import <ZMJTipView/ZMJTipView.h>
+#import "ZMJTaskView.h"
+#import "UIView+Frame.h"
+@import YYCategories;
 
 @interface ZMJViewController () <ZMJTipViewDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *navBarItem;
@@ -65,10 +68,19 @@
     if (self.tipView) {
         [self.tipView dismissWithCompletion:^{
             NSLog(@"Completion called!");
+            self.tipView = nil;
         }];
     } else {
-        NSString *text = @"EasyTipView is an easy to use tooltip view. It can point to any UIView or UIBarItem subclasses. Tap the buttons to see other tooltips.";
+        NSString *text = @"ZMJTipView is an easy to use tooltip view. It can point to any UIView or UIBarItem subclasses. Tap the buttons to see other tooltips.";
         ZMJTipView *tip = [[ZMJTipView alloc] initWithText:text preferences:nil delegate:self];
+        tip.fakeView = ({
+            ZMJTaskView *taskView = [ZMJTaskView new];
+            taskView.width = tip.preferences.positioning.maxWidth;
+            taskView.taskTitle = @"ZMJTipView show task!";
+            taskView.startTime = @"2018-02-10 15:33:22";
+            taskView.endTime = @"2019-02-10 15:33:22";
+            taskView;
+        });
         [tip showAnimated:YES forItem:self.toolBarItem withinSuperview:nil];
         self.tipView = tip;
     }

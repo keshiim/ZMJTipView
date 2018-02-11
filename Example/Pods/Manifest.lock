@@ -4,10 +4,14 @@ PODS:
   - FBSnapshotTestCase/Core (2.1.4)
   - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
+  - YYCategories (1.0.4):
+    - YYCategories/no-arc (= 1.0.4)
+  - YYCategories/no-arc (1.0.4)
   - ZMJTipView (0.1.0)
 
 DEPENDENCIES:
   - FBSnapshotTestCase
+  - YYCategories (~> 1.0.4)
   - ZMJTipView (from `../`)
 
 EXTERNAL SOURCES:
@@ -16,8 +20,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
-  ZMJTipView: 266d6d67b23ca6c4bc1384bbd73edcda5482f7ba
+  YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
+  ZMJTipView: 15f549581fcc1c7af51606e8f866e58d7d348ea3
 
-PODFILE CHECKSUM: f2c4ef7c39cac8e1fbfc11cbd38cf34ccfbb68a3
+PODFILE CHECKSUM: fc17da7d952453bf1e25621591603c7442c6b9d4
 
 COCOAPODS: 1.4.0

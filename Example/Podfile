@@ -2,6 +2,7 @@ use_frameworks!
 
 target 'ZMJTipView_Example' do
   pod 'ZMJTipView', :path => '../'
+  pod 'YYCategories', '~> 1.0.4'
 
   target 'ZMJTipView_Tests' do
     inherit! :search_paths

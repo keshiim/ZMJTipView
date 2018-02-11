@@ -362,7 +362,34 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
                                                     NSParagraphStyleAttributeName: paragraphStyle}];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    if (self.fakeView) {
+        CGRect bubbleFrame = [self _computeBubbleFrameAccordingPosition];
+        self.fakeView.frame = bubbleFrame;
+        //config fakeView
+        self.fakeView.layer.cornerRadius = self.preferences.drawing.cornerRadius;
+        self.fakeView.layer.masksToBounds = YES;
+    }
+}
+
 - (void)drawRect:(CGRect)rect {
+    CGRect bubbleFrame = [self _computeBubbleFrameAccordingPosition];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(context);
+    [self drawBubble:bubbleFrame arrowPosition:self.preferences.drawing.arrowPosition context:context];
+    CGContextRestoreGState(context);
+    
+    if (!self.fakeView) {
+        CGContextSaveGState(context);
+        [self drawText:bubbleFrame context:context];
+        CGContextRestoreGState(context);
+    }
+}
+
+- (CGRect)_computeBubbleFrameAccordingPosition {
     ZMJArrowPosition arrowPosition = self.preferences.drawing.arrowPosition;
     CGFloat bubbleWidth = 0.f;
     CGFloat bubbleHeight = 0.f;
@@ -391,15 +418,7 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
             break;
     }
     CGRect bubbleFrame = CGRectMake(bubbleXOrigin, bubbleYOrigin, bubbleWidth, bubbleHeight);
-    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSaveGState(context);
-    [self drawBubble:bubbleFrame arrowPosition:self.preferences.drawing.arrowPosition context:context];
-    CGContextRestoreGState(context);
-    
-    CGContextSaveGState(context);
-    [self drawText:bubbleFrame context:context];
-    CGContextRestoreGState(context);
+    return bubbleFrame;
 }
 
 // MARK: Variables
@@ -436,6 +455,11 @@ static ZMJPreferences *_globalPreferences;
     }
 }
 
+- (void)setFakeView:(UIView *)fakeView {
+    _fakeView = fakeView;
+    [self addSubview:fakeView];
+}
+
 // MARK: Lazy variables
 - (CGSize)textSize {
     NSDictionary *attributes = @{NSFontAttributeName: self.preferences.drawing.font};
@@ -454,6 +478,11 @@ static ZMJPreferences *_globalPreferences;
 }
 
 - (CGSize)contentSize {
+    if (self.fakeView) {
+        return CGSizeMake([self.fakeView intrinsicContentSize].width + self.preferences.positioning.bubbleHInset * 2,
+                          [self.fakeView intrinsicContentSize].height + self.preferences.positioning.bubbleVInset * 2 + self.preferences.drawing.arrowHeight);
+    }
+    
     CGSize contentSize = CGSizeMake(self.textSize.width + self.preferences.positioning.textHInset * 2 + self.preferences.positioning.bubbleHInset * 2,
                                     self.textSize.height + self.preferences.positioning.textVInset * 2 + self.preferences.positioning.bubbleVInset * 2 + self.preferences.drawing.arrowHeight);
     return contentSize;
@@ -563,6 +592,7 @@ static ZMJPreferences *_globalPreferences;
                             [weak_self.delegate tipViewDidDimiss:weak_self];
                             [weak_self removeFromSuperview];
                             weak_self.transform = CGAffineTransformIdentity;
+                            completion();
                         }];
 }
 @end
