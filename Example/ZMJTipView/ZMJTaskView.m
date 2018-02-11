@@ -10,10 +10,12 @@
 #import "UIView+Frame.h"
 @import YYCategories;
 
-#define TaskTitleColor [UIColor whiteColor]//[UIColor colorWithHexString:@"333333"]
-#define TimeTitleColor [UIColor whiteColor]//[UIColor colorWithHexString:@"999999"]
-#define ValueColor     [UIColor whiteColor]//[UIColor colorWithHexString:@"666666"]
-#define LineColor      [UIColor whiteColor]//[UIColor colorWithHexString:@"DBDBDB"]
+#define TaskTitleColor [UIColor whiteColor]//eg.[UIColor colorWithHexString:@"333333"]
+#define TimeTitleColor [UIColor whiteColor]//eg.[UIColor colorWithHexString:@"999999"]
+#define ValueColor     [UIColor whiteColor]//eg.[UIColor colorWithHexString:@"666666"]
+#define LineColor      [UIColor whiteColor]//eg.[UIColor colorWithHexString:@"DBDBDB"]
+
+#define DateTitleWidth 45.f
 
 @interface ZMJTaskView ()
 @property (nonatomic, strong) UILabel *taskTitleLabel;
@@ -49,7 +51,7 @@
 
     self.taskTitleLabel = ({
         UILabel *label = [UILabel new];
-        label.font = [UIFont systemFontOfSize:16.f];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
         label.lineBreakMode = NSLineBreakByWordWrapping;
         label.textColor = TaskTitleColor;
         [self addSubview:label];
@@ -58,7 +60,7 @@
                            
     self.startTimeTitleLabel = ({
         UILabel *label = [UILabel new];
-        label.font = [UIFont systemFontOfSize:12.f];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10];
         label.text = @"Start time:";
         label.textColor = TimeTitleColor;
         [self addSubview:label];
@@ -67,7 +69,7 @@
     
     self.startTimeLabel = ({
         UILabel *label = [UILabel new];
-        label.font = [UIFont systemFontOfSize:12.f];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10];
         label.lineBreakMode = NSLineBreakByWordWrapping;
         label.textColor = ValueColor;
         [self addSubview:label];
@@ -76,7 +78,7 @@
     
     self.endTimeTitleLabel = ({
         UILabel *label = [UILabel new];
-        label.font = [UIFont systemFontOfSize:12.f];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10];
         label.text = @"End time:";
         label.textColor = TimeTitleColor;
         [self addSubview:label];
@@ -85,7 +87,7 @@
     
     self.endTimeLabel = ({
         UILabel *label = [UILabel new];
-        label.font = [UIFont systemFontOfSize:12.f];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10];
         label.lineBreakMode = NSLineBreakByWordWrapping;
         label.textColor = ValueColor;
         [self addSubview:label];
@@ -101,7 +103,7 @@
     
     self.viewDetailLabel = ({
         UILabel *label = [UILabel new];
-        label.font = [UIFont systemFontOfSize:14.f];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
         label.lineBreakMode = NSLineBreakByWordWrapping;
         label.text = @"View the detail";
         label.textColor = ValueColor;
@@ -120,18 +122,20 @@
     [self.startTimeTitleLabel sizeToFit];
     self.startTimeTitleLabel.x = 12.f;
     self.startTimeTitleLabel.y = self.taskTitleLabel.maxY + 6.f;
+    self.startTimeTitleLabel.width = DateTitleWidth;
     
     [self.startTimeLabel sizeToFit];
-    self.startTimeLabel.x = self.startTimeTitleLabel.maxX;
+    self.startTimeLabel.x = self.startTimeTitleLabel.maxX + 3;
     self.startTimeLabel.y = self.startTimeTitleLabel.y;
     self.startTimeLabel.maxXByStretch = self.width - 12.f;
     
     [self.endTimeTitleLabel sizeToFit];
     self.endTimeTitleLabel.x = 12.f;
     self.endTimeTitleLabel.y = self.startTimeLabel.maxY + 2.f;
+    self.endTimeTitleLabel.width = DateTitleWidth;
     
     [self.endTimeLabel sizeToFit];
-    self.endTimeLabel.x = self.endTimeTitleLabel.maxX;
+    self.endTimeLabel.x = self.endTimeTitleLabel.maxX + 3;
     self.endTimeLabel.y = self.endTimeTitleLabel.y;
     self.endTimeLabel.maxXByStretch = self.width - 12.f;
     
