@@ -10,7 +10,9 @@ Description
 ```ZMJTipView``` is a fully customisable tooltip view written in Swift that can be used as a call to action or informative tip.
 
 |<img src="https://raw.githubusercontent.com/keshiim/ZMJTipView/master/Resources/easytipview.gif" width="320">|<img src="https://raw.githubusercontent.com/keshiim/ZMJTipView/master/Resources/static.png" width="320">|
-|<img src="https://raw.githubusercontent.com/keshiim/ZMJTipView/master/Resources/static-iphonex.png" width="320">|-------------|
+|----------|-------------|
+<img src="https://raw.githubusercontent.com/keshiim/ZMJTipView/master/Resources/static-iphonex.png" width="320">|<img src="https://raw.githubusercontent.com/keshiim/ZMJTipView/master/Resources/animation.gif" width="320">||
+
 ## Contents
 1. [Features](#features)
 3. [Installation](#installation)
