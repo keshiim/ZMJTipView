@@ -117,7 +117,7 @@
 		EF519A026B10AC73ABBE6E658308B29D /* FBSnapshotTestCase-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSnapshotTestCase-prefix.pch"; sourceTree = "<group>"; };
 		F08C72BD693CD835DB3390A3626C6780 /* Pods-ZMJTipView_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ZMJTipView_Tests.modulemap"; sourceTree = "<group>"; };
 		F10CBDEE32E5F6BDECFB3D41F7DD0B03 /* FBSnapshotTestCase.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FBSnapshotTestCase.modulemap; sourceTree = "<group>"; };
-		F5EB75FABD228889A0712F5F80053BDB /* ZMJTipView.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = ZMJTipView.podspec; sourceTree = "<group>"; };
+		F5EB75FABD228889A0712F5F80053BDB /* ZMJTipView.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = ZMJTipView.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F9FB30D3B393D1469D5E82178EE14700 /* Pods-ZMJTipView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZMJTipView_Example.release.xcconfig"; sourceTree = "<group>"; };
 		FB40199D2EAA7284ED10DFC1DD61E1C4 /* Pods-ZMJTipView_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZMJTipView_Tests-frameworks.sh"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
