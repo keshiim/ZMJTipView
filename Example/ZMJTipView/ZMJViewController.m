@@ -38,6 +38,7 @@
     
     ZMJTipView.globalPreferences = preferences;
     self.view.backgroundColor = [UIColor colorWithHue:0.75 saturation:0.01 brightness:0.96 alpha:1.00];
+    [self.navigationController setToolbarHidden:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
