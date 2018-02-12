@@ -592,7 +592,7 @@ static ZMJPreferences *_globalPreferences;
                             [weak_self.delegate tipViewDidDimiss:weak_self];
                             [weak_self removeFromSuperview];
                             weak_self.transform = CGAffineTransformIdentity;
-                            completion();
+                            if (completion) completion();
                         }];
 }
 @end
