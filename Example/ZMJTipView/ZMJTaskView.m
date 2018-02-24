@@ -9,6 +9,7 @@
 #import "ZMJTaskView.h"
 #import "UIView+Frame.h"
 @import YYCategories;
+@import ZMJTipView;
 
 #define TaskTitleColor [UIColor whiteColor]//eg.[UIColor colorWithHexString:@"333333"]
 #define TimeTitleColor [UIColor whiteColor]//eg.[UIColor colorWithHexString:@"999999"]
@@ -17,7 +18,7 @@
 
 #define DateTitleWidth 45.f
 
-@interface ZMJTaskView ()
+@interface ZMJTaskView () <ZMJTipCustomViewProtocol>
 @property (nonatomic, strong) UILabel *taskTitleLabel;
 @property (nonatomic, strong) UILabel *startTimeTitleLabel;
 @property (nonatomic, strong) UILabel *startTimeLabel;

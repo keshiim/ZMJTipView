@@ -7,8 +7,8 @@
 //
 
 #import "UIView+Frame.h"
-#import <YYCategories/UIView+YYAdd.h>
-#import <YYCategories/CALayer+YYAdd.h>
+@import YYCategories.UIView_YYAdd;
+@import YYCategories.CALayer_YYAdd;
 
 @implementation UIView (WBGFrame)
 

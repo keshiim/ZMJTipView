@@ -22,6 +22,13 @@ typedef NS_ENUM(NSInteger, ZMJArrowPosition) {
 - (void)tipViewDidDimiss:(ZMJTipView *)tipView;
 @end
 
+/**
+ ZMJTipCustomView needs implement - intrinsicContentSize
+ */
+@protocol ZMJTipCustomViewProtocol
+- (CGSize)intrinsicContentSize;
+@end
+
 @interface ZMJAnimating : NSObject
 @property (nonatomic, assign) CGAffineTransform dismissTransform;
 @property (nonatomic, assign) CGAffineTransform showInitialTransform;
