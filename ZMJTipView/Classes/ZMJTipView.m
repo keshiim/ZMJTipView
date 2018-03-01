@@ -30,7 +30,7 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
         _dismissFinalAlpha= 0.f;
         
         _showDuration    = 0.7;
-        _dismissDuration = 0.7;
+        _dismissDuration = 0.5;
         _dismissOnTap    = YES;
     }
     return self;
@@ -78,9 +78,10 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
 {
     self = [super init];
     if (self) {
-        _drawing = [ZMJDrawing new];
+        _drawing     = [ZMJDrawing new];
         _positioning = [ZMJPositioning new];
-        _animating = [ZMJAnimating new];
+        _animating   = [ZMJAnimating new];
+        _shouldSelectDismiss = YES;
     }
     return self;
 }
@@ -92,7 +93,7 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
 
 @interface ZMJTipView () <UIGestureRecognizerDelegate>
 @property (nonatomic, weak  ) UIView                *presentingView;
-@property (nonatomic, weak  ) id<ZMJTipViewDelegate> delegate;
+@property (nonatomic, weak  ) NSObject<ZMJTipViewDelegate> *delegate;
 @property (nonatomic, assign) CGPoint                arrowTip;
 @property (nonatomic, strong) ZMJPreferences        *preferences;
 @property (nonatomic, assign) CGSize textSize;
@@ -261,7 +262,10 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
 }
 
 - (void)handleTap {
-    [self dismissWithCompletion:nil];
+    ![self.delegate respondsToSelector:@selector(tipViewDidSelected:)] ?: [self.delegate tipViewDidSelected:self];
+    if (self.preferences.shouldSelectDismiss) {
+        [self dismissWithCompletion:nil];
+    }
 }
 
 // MARK: Drawing

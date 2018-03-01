@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ZMJTipView'
-  s.version          = '0.1.3'
+  s.version          = '0.1.4'
   s.summary          = 'Fully customisable tooltip view in Objective-C for iOS.'
 
 # This description is used to generate tags and improve search results.
@@ -19,6 +19,13 @@ Pod::Spec.new do |s|
 
   s.description      = <<-DESC
 Fully customisable tooltip view in Objective-C for iOS.
+Features
+ Can be shown pointing to any UIBarItem or UIView subclass.
+ support for any arrow direction ←, →, ↑, ↓
+ Automatic orientation change adjustments.
+ Fully customisable appearance.
+ Fully customisable presentation and dismissal animations.
+ Support contain custom view.
                        DESC
 
   s.homepage         = 'https://github.com/keshiim/ZMJTipView'

@@ -18,7 +18,8 @@ typedef NS_ENUM(NSInteger, ZMJArrowPosition) {
 @class ZMJTipView, ZMJPreferences, ZMJDrawing, ZMJPositioning, ZMJAnimating;
 @protocol ZMJTipViewDelegate;
 
-@protocol ZMJTipViewDelegate
+@protocol ZMJTipViewDelegate <NSObject>
+- (void)tipViewDidSelected:(ZMJTipView *)tipView;
 - (void)tipViewDidDimiss:(ZMJTipView *)tipView;
 @end
 
@@ -34,7 +35,7 @@ typedef NS_ENUM(NSInteger, ZMJArrowPosition) {
 @property (nonatomic, assign) CGAffineTransform showInitialTransform;
 @property (nonatomic, assign) CGAffineTransform showFinalTransform;
 @property (nonatomic, assign) CGFloat springDamping; //阻尼率
-@property (nonatomic, assign) CGFloat springVelocity;//及速率
+@property (nonatomic, assign) CGFloat springVelocity;//加速率
 @property (nonatomic, assign) CGFloat showInitialAlpha;
 @property (nonatomic, assign) CGFloat dismissFinalAlpha;
 @property (nonatomic, assign) CGFloat showDuration;
@@ -68,6 +69,7 @@ typedef NS_ENUM(NSInteger, ZMJArrowPosition) {
 @property (nonatomic, strong) ZMJPositioning *positioning;
 @property (nonatomic, strong) ZMJAnimating   *animating;
 @property (nonatomic, assign) BOOL hasBorder;
+@property (nonatomic, assign) BOOL shouldSelectDismiss; //default is 'YES'
 @end
 
 @interface ZMJTipView : UIView

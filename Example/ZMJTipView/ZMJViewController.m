@@ -50,8 +50,13 @@
     [self toolBarButtonAction:nil];
 }
 
+//MARK: ZMJTipViewDelegate
 - (void)tipViewDidDimiss:(ZMJTipView *)tipView {
     NSLog(@"%@ did dismiss!", tipView);
+}
+
+- (void)tipViewDidSelected:(ZMJTipView *)tipView {
+    
 }
 
 - (IBAction)barbuttonItemAction:(UIBarButtonItem *)sender {
