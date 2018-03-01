@@ -565,6 +565,7 @@ static ZMJPreferences *_globalPreferences;
     void(^animations)(void) = ^(void) {
         weak_self.transform = finalTransform;
         weak_self.alpha = 1;
+        self->_showing = YES;
     };
     
     if (animated) {
@@ -596,6 +597,7 @@ static ZMJPreferences *_globalPreferences;
                             [weak_self.delegate tipViewDidDimiss:weak_self];
                             [weak_self removeFromSuperview];
                             weak_self.transform = CGAffineTransformIdentity;
+                            self->_showing = NO;
                             if (completion) completion();
                         }];
 }
