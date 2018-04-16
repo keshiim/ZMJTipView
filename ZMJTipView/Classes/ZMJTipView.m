@@ -67,6 +67,7 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
         _textAlignment   = NSTextAlignmentCenter;
         _borderWidth = 0.f;
         _borderColor = [UIColor clearColor];
+        _shadowColor = [[UIColor blackColor] colorWithAlphaComponent:.4];
         _font        = [UIFont systemFontOfSize:15.f];
     }
     return self;
@@ -302,7 +303,7 @@ __unused static ZMJArrowPosition ZMJArrowPositionAllValues[4] = {
             break;
     }
     CGPathCloseSubpath(contourPath);
-    CGContextSetShadowWithColor(context, CGSizeZero, 10, [[UIColor blackColor] colorWithAlphaComponent:.6].CGColor);
+    CGContextSetShadowWithColor(context, CGSizeZero, 10, self.preferences.drawing.shadowColor.CGColor);
     CGContextAddPath(context, contourPath);
     CGContextClosePath(context);
     
