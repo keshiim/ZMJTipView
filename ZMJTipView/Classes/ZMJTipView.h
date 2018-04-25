@@ -61,6 +61,7 @@ typedef NS_ENUM(NSInteger, ZMJArrowPosition) {
 @property (nonatomic, assign) NSTextAlignment  textAlignment;
 @property (nonatomic, assign) CGFloat borderWidth;
 @property (nonatomic, strong) UIColor *borderColor;
+@property (nonatomic, strong) UIColor *shadowColor;
 @property (nonatomic, strong) UIFont  *font;
 @end
 

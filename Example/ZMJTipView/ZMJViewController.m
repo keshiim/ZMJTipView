@@ -153,6 +153,7 @@
         preferences.drawing.font = [UIFont systemFontOfSize:14.f];
         preferences.drawing.textAlignment = NSTextAlignmentCenter;
         preferences.drawing.backgroundColor = self.buttonD.backgroundColor;
+        preferences.drawing.shadowColor = [UIColor clearColor];
         
         preferences.positioning.maxWidth = 130;
         
@@ -165,7 +166,7 @@
         [ZMJTipView showAnimated:YES
                          forView:self.buttonD
                  withinSuperview:self.navigationController.view
-                            text:@"Tip view within the topmost window. Tap to dismiss."
+                            text:@"Unshadow tip view within the topmost window. Tap to dismiss."
                      preferences:preferences
                         delegate:nil];
     } else if (sender == self.buttonE) {
